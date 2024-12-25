@@ -5,22 +5,22 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
+    {/* Hero Section */}
+    <section className="min-h-screen flex flex-col items-center justify-center px-4 mt-safe">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center pt-12 sm:pt-0"
+      >
+        <motion.h1 
+          className="text-5xl sm:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          <motion.h1 
-            className="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Win Your Argument
-          </motion.h1>
+          Win Your Argument
+      </motion.h1>
           <motion.p 
             className="text-xl text-gray-300 mb-8"
             initial={{ opacity: 0 }}

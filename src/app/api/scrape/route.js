@@ -151,8 +151,8 @@ export async function POST(request) {
     // console.log('[Scrape API] Searching for:', searchTerm, 'page:', page)
 
     const [arxivData, pubmedData] = await Promise.all([
-      fetchFromArxiv(searchTerm, page * 5, 5),  // get 5 from arXiv
-      fetchFromPubmed(searchTerm, page, 5)      // get 5 from PubMed
+      fetchFromArxiv(searchTerm, page * resultsPerPage, 10),  // get 10 from arXiv
+      fetchFromPubmed(searchTerm, page, 10)                   // get 10 from PubMed
     ])
 
     // console.log('[Scrape API] Found:', {
@@ -162,8 +162,23 @@ export async function POST(request) {
     //   totalPubmed: pubmedData.total
     // })
 
-    // combine results
-    const allResults = [...arxivData.results, ...pubmedData.results]
+    // combine results - if one source has no results, use more from the other
+    let allResults = []
+    
+    if (arxivData.results.length === 0) {
+      // no arXiv results, use up to 10 from PubMed
+      allResults = pubmedData.results.slice(0, 10)
+    } else if (pubmedData.results.length === 0) {
+      // no PubMed results, use up to 10 from arXiv
+      allResults = arxivData.results.slice(0, 10)
+    } else {
+      // both have results, take up to 5 from each
+      allResults = [
+        ...arxivData.results.slice(0, 5),
+        ...pubmedData.results.slice(0, 5)
+      ]
+    }
+
     const totalResults = arxivData.total + pubmedData.total
     
     // create embeddings for all results
@@ -197,8 +212,6 @@ export async function POST(request) {
         // console.error('[Scrape API] Database error:', insertError)
         throw insertError
       }
-
-      // console.log('[Scrape API] Saved', studiesWithEmbeddings.length, 'results with embeddings to database')
     }
 
     return NextResponse.json({
