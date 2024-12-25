@@ -1,4 +1,8 @@
+import { useState } from 'react'
+
 export default function ResultCard({ study }) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
     <div className="p-6 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-colors">
       <a 
@@ -13,12 +17,21 @@ export default function ResultCard({ study }) {
         <p className="text-sm text-gray-400 mt-2">
           {study.authors} • {study.year}
         </p>
-        {study.abstract && (
-          <p className="text-gray-300 mt-4 line-clamp-3">
+      </a>
+      
+      {study.abstract && (
+        <div className="mt-4">
+          <p className={`text-gray-300 ${!isExpanded && 'line-clamp-3'}`}>
             {study.abstract}
           </p>
-        )}
-      </a>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-2 text-sm text-purple-400 hover:text-purple-300 transition-colors focus:outline-none"
+          >
+            {isExpanded ? 'Show Less' : 'Show More'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
