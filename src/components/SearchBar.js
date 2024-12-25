@@ -119,7 +119,7 @@ export default function SearchBar({ onSearch }) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 z-10 bg-gradient-to-b from-black to-transparent pb-4">
       <form onSubmit={handleSearch} className="relative">
         <input
           type="text"

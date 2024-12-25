@@ -89,7 +89,7 @@ export default function StudyList({ studies, analysis }) {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="mt-8 space-y-4"
+      className="mt-8 space-y-4 pb-20"
     >
       {studies.map((study, index) => (
         <motion.div 
