@@ -64,7 +64,8 @@ export async function POST(request) {
       studies: results || [],
       totalResults,
       currentPage: page,
-      totalPages: Math.ceil(totalResults / resultsPerPage)
+      totalPages: Math.ceil(totalResults / resultsPerPage),
+      noResults: !results || results.length === 0 
     })
 
   } catch (error) {

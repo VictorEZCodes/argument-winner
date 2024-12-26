@@ -61,7 +61,10 @@ export default function SearchBar({ onSearch }) {
       // console.log('Received unique studies:', uniqueStudies.length)
       setCurrentPage(data.currentPage || 0)
       setTotalPages(data.totalPages || 0)
-      onSearch(uniqueStudies)
+      onSearch({                    
+        studies: uniqueStudies,    
+        noResults: uniqueStudies.length === 0
+      })
       
     } catch (err) {
       // console.error('Search error:', err)
@@ -100,7 +103,10 @@ export default function SearchBar({ onSearch }) {
       // console.log('Received unique scraped studies:', uniqueStudies.length)
       setCurrentPage(data.currentPage || 0)
       setTotalPages(data.totalPages || 0)
-      onSearch(uniqueStudies)
+      onSearch({                    
+        studies: uniqueStudies,     
+        noResults: uniqueStudies.length === 0
+      })
       
     } catch (err) {
       setError('Failed to scrape studies')

@@ -144,7 +144,8 @@ export async function POST(request) {
         studies: [],
         totalResults: 0,
         currentPage: 0,
-        totalPages: 0
+        totalPages: 0,
+        noResults: true  // Add this line
       })
     }
 
@@ -218,7 +219,8 @@ export async function POST(request) {
       studies: allResults,
       totalResults: totalResults,
       currentPage: page,
-      totalPages: Math.ceil(totalResults / resultsPerPage)
+      totalPages: Math.ceil(totalResults / resultsPerPage),
+      noResults: !allResults || allResults.length === 0  // Add this line
     })
 
   } catch (error) {

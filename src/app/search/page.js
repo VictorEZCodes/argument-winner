@@ -10,10 +10,17 @@ export default function SearchPage() {
   const [analysis, setAnalysis] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [question, setQuestion] = useState('')
+  const [noResults, setNoResults] = useState(false)
 
   const handleSearch = (results) => {
     // console.log('Search results:', results)
-    setStudies(results)
+    if (results && results.studies) {
+      setStudies(results.studies)
+      setNoResults(results.noResults || results.studies.length === 0)
+    } else {
+      setStudies([])
+      setNoResults(true)
+    }
     setAnalysis('') 
   }
 
@@ -75,6 +82,16 @@ export default function SearchPage() {
             className="max-w-3xl mx-auto space-y-8"
           >
             <SearchBar onSearch={handleSearch} />
+
+            {noResults && (  
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-4"
+              >
+                <p className="text-gray-400">No results found. Try different search terms.</p>
+              </motion.div>
+            )}
             
             {studies.length > 0 && (
               <motion.div
